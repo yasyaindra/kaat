@@ -1,6 +1,7 @@
 // Pulling tile and keyboard component by using javascript
 const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
+const messageDisplay = document.querySelector(".message-container");
 
 const kaat = "SUPER";
 
@@ -80,7 +81,7 @@ const handleClick = (key) => {
     return;
   }
   if (key === "ENTER") {
-    console.log("row checked!");
+    checkRow();
     return;
   }
   addLetter(key);
@@ -109,4 +110,23 @@ const deleteLetter = () => {
     guessRows[currentRow][currentTile] = "";
     tile.setAttribute("data", "");
   }
+};
+
+const checkRow = () => {
+  if (currentTile === 5) {
+    const guess = guessRows[currentRow].join("");
+    console.log("guess is " + guess, "kaat is " + kaat);
+    if (kaat == guess) {
+      showMessage("Selamat Kamu Benar!");
+    }
+  }
+};
+
+const showMessage = (message) => {
+  const messageElement = document.createElement("p");
+  messageElement.textContent = message;
+  messageDisplay.append(messageElement);
+  setTimeout(() => {
+    messageDisplay.removeChild(messageElement);
+  }, 2000);
 };
