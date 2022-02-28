@@ -75,7 +75,8 @@ keys.forEach((key) => {
 const handleClick = (key) => {
   console.log(key);
   if (key === "«") {
-    console.log("delete letter");
+    deleteLetter();
+    console.log("guessRows", guessRows);
     return;
   }
   if (key === "ENTER") {
@@ -95,5 +96,17 @@ const addLetter = (letter) => {
     tile.setAttribute("data", letter);
     currentTile++;
     console.log("guessRows", guessRows);
+  }
+};
+
+const deleteLetter = () => {
+  if (currentTile > 0) {
+    currentTile--;
+    const tile = document.getElementById(
+      "guessRow-" + currentRow + "-tile-" + currentTile
+    );
+    tile.textContent = "";
+    guessRows[currentRow][currentTile] = "";
+    tile.setAttribute("data", "");
   }
 };
