@@ -114,6 +114,7 @@ const deleteLetter = () => {
 const checkRow = () => {
   const guess = guessRows[currentRow].join("");
   if (currentTile > 4) {
+    flipTile();
     // console.log("guess is " + guess, "kaat is " + kaat);
     if (kaat == guess) {
       showMessage("Selamat Kamu Benar!");
@@ -142,4 +143,43 @@ const showMessage = (message) => {
   setTimeout(() => {
     messageDisplay.removeChild(messageElement);
   }, 2000);
+};
+
+const addColorToKey = (keyLetter, color) => {
+  const key = document.getElementById(keyLetter);
+  key.classList.add(color);
+};
+
+const flipTile = () => {
+  const rowTiles = document.querySelector("#guessRow-" + currentRow).childNodes;
+  let checkKaat = kaat;
+  const guess = [];
+
+  rowTiles.forEach((tile) => {
+    guess.push({ letter: tile.getAttribute("data"), color: "grey-overlay" });
+  });
+
+  guess.forEach((guess, index) => {
+    if (guess.letter == kaat[index]) {
+      guess.color = "green-overlay";
+      checkKaat = checkKaat.replace(guess.letter, "");
+    }
+  });
+
+  guess.forEach((guess) => {
+    if (checkKaat.includes(guess.letter)) {
+      guess.color = "yellow-overlay";
+      checkKaat = checkKaat.replace(guess.letter, "");
+    }
+  });
+
+  rowTiles.forEach((tile, index) => {
+    // const dataLetter = tile.getAttribute("data");
+
+    setTimeout(() => {
+      tile.classList.add("flip");
+      tile.classList.add(guess[index].color);
+      addColorToKey(guess[index].letter, guess[index].color);
+    }, 500 * index);
+  });
 };
