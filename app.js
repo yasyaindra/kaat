@@ -47,6 +47,7 @@ const guessRows = [
 
 let currentRow = 0;
 let currentTile = 0;
+let isGameOver = false;
 
 guessRows.forEach((row, guessRowIndex) => {
   const rowElement = document.createElement("div");
@@ -74,10 +75,8 @@ keys.forEach((key) => {
 });
 
 const handleClick = (key) => {
-  console.log(key);
   if (key === "«") {
     deleteLetter();
-    console.log("guessRows", guessRows);
     return;
   }
   if (key === "ENTER") {
@@ -113,16 +112,30 @@ const deleteLetter = () => {
 };
 
 const checkRow = () => {
-  if (currentTile === 5) {
-    const guess = guessRows[currentRow].join("");
-    console.log("guess is " + guess, "kaat is " + kaat);
+  const guess = guessRows[currentRow].join("");
+  if (currentTile > 4) {
+    // console.log("guess is " + guess, "kaat is " + kaat);
     if (kaat == guess) {
       showMessage("Selamat Kamu Benar!");
+      isGameOver = true;
+      return;
+    } else {
+      console.log(currentRow);
+      if (currentRow >= 4) {
+        isGameOver = false;
+        showMessage("Permainan Berakhir");
+        return;
+      }
+      if (currentRow < 5) {
+        currentRow++;
+        currentTile = 0;
+      }
     }
   }
 };
 
 const showMessage = (message) => {
+  console.log(message);
   const messageElement = document.createElement("p");
   messageElement.textContent = message;
   messageDisplay.append(messageElement);
