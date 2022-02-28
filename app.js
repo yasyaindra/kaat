@@ -44,6 +44,9 @@ const guessRows = [
   ["", "", "", "", ""],
 ];
 
+let currentRow = 0;
+let currentTile = 0;
+
 guessRows.forEach((row, guessRowIndex) => {
   const rowElement = document.createElement("div");
   rowElement.setAttribute("id", "guessRow-" + guessRowIndex);
@@ -71,4 +74,26 @@ keys.forEach((key) => {
 
 const handleClick = (key) => {
   console.log(key);
+  if (key === "«") {
+    console.log("delete letter");
+    return;
+  }
+  if (key === "ENTER") {
+    console.log("row checked!");
+    return;
+  }
+  addLetter(key);
+};
+
+const addLetter = (letter) => {
+  if (currentTile < 5 && currentRow < 6) {
+    const tile = document.getElementById(
+      "guessRow-" + currentRow + "-tile-" + currentTile
+    );
+    tile.textContent = letter;
+    guessRows[currentRow][currentTile] = letter;
+    tile.setAttribute("data", letter);
+    currentTile++;
+    console.log("guessRows", guessRows);
+  }
 };
