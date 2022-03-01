@@ -8,18 +8,18 @@ body {
   background-color: #121213;
 }
 
-.title-container {
-  text-align: center;
-  width: 510px;
-  border-bottom: solid 1px #3a3a3c;
-}
-
 .game-container {
   height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.title-container {
+  text-align: center;
+  width: 510px;
+  border-bottom: solid 1px #3a3a3c;
 }
 
 .tile-container {
@@ -73,21 +73,8 @@ body {
 .message-container p {
   background-color: #818384;
   border-radius: 10px;
+  padding: 10px;
   margin: 0;
-}
-
-.grey-overlay {
-  background-color: #3a3a3c !important;
-  border: none !important;
-}
-.yellow-overlay {
-  background-color: #b59f3a !important;
-  border: none !important;
-}
-
-.green-overlay {
-  background-color: #538d4e !important;
-  border: none !important;
 }
 
 .tile.flip {
@@ -104,4 +91,27 @@ body {
   100% {
     transform: rotateX(0deg);
   }
+}
+
+.grey-overlay {
+  background-color: #3a3a3c !important;
+  border: none !important;
+}
+.yellow-overlay {
+  background-color: #b59f3a !important;
+  border: none !important;
+}
+
+.green-overlay {
+  background-color: #538d4e !important;
+  border: none !important;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
 }

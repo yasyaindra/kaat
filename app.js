@@ -3,7 +3,23 @@ const tileDisplay = document.querySelector(".tile-container");
 const keyboard = document.querySelector(".key-container");
 const messageDisplay = document.querySelector(".message-container");
 
-const kaat = "SUPER";
+const kaatList = [
+  "MERAH",
+  "MAWAR",
+  "GENIT",
+  "HADIR",
+  "BULAT",
+  "DARAH",
+  "JAHAT",
+];
+
+const getKaat = (kaatList) => {
+  const min = 7;
+  const a = Math.floor(Math.random() * (kaatList.length - 0));
+  return kaatList[a];
+};
+
+const kaat = getKaat(kaatList);
 
 // creating keyboard by an array
 const keys = [
@@ -95,7 +111,6 @@ const addLetter = (letter) => {
     guessRows[currentRow][currentTile] = letter;
     tile.setAttribute("data", letter);
     currentTile++;
-    console.log("guessRows", guessRows);
   }
 };
 
@@ -113,18 +128,17 @@ const deleteLetter = () => {
 
 const checkRow = () => {
   const guess = guessRows[currentRow].join("");
+
   if (currentTile > 4) {
     flipTile();
-    // console.log("guess is " + guess, "kaat is " + kaat);
     if (kaat == guess) {
       showMessage("Selamat Kamu Benar!");
       isGameOver = true;
       return;
     } else {
-      console.log(currentRow);
       if (currentRow >= 4) {
         isGameOver = false;
-        showMessage("Permainan Berakhir");
+        showMessage(`Permainan Berakhir, Jawaban Yang Benar Adalah ${kaat}`);
         return;
       }
       if (currentRow < 5) {
@@ -136,13 +150,10 @@ const checkRow = () => {
 };
 
 const showMessage = (message) => {
-  console.log(message);
   const messageElement = document.createElement("p");
   messageElement.textContent = message;
   messageDisplay.append(messageElement);
-  setTimeout(() => {
-    messageDisplay.removeChild(messageElement);
-  }, 2000);
+  setTimeout(() => messageDisplay.removeChild(messageElement), 2000);
 };
 
 const addColorToKey = (keyLetter, color) => {
